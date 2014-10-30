@@ -13,6 +13,7 @@ function redditVis() {
   redditSvg = d3.select("body")
         .append("svg")
         .attr("width",document.body.clientWidth - 50)
+        .attr("height",document.body.clientWidth -50)
 }
 
 function requestData() {
@@ -35,30 +36,35 @@ function runVis(data) {
   // select our stories, pulling in previous ones to update
   // by selecting on the stories' class name
   var stories = redditSvg
-     .selectAll(".story")
+     .selectAll("text")
      // the return value of data() is the update context - so the 'stories' var is
      // how we refence the update context from now on
      .data(formatted,function(d) {
        // prints out data in your console id, score, diff from last pulling, text
-       console.log(d.id,d.score,d.diff,d.title);
+       
+       // console.log(d.id,d.score,d.diff,d.title);
 
        // use a key function to ensure elements are always bound to the same 
        // story (especially important when data enters/exits)
        return d.id;
      });
 
-  // calculate how many circles we'll get on a row
-
   // ENTER context
   stories.enter()
+    .append("text")
+    .text(function(d){return d.score + " " + d.diff + " " + d.title})
+    .attr("y", function(d,i){return 1.5*i + 1 + "em"})
+    .style("color","black");
 
   // UPDATE + ENTER context
   // elements added via enter() will then be available on the update context, so
   // we can set attributes once, for entering and updating elements, here
   stories
+    .text(function(d){return d.score + " " + d.diff + " " + d.title})
 
   // EXIT content
   stories.exit()
+    .remove()
 }
 
 
