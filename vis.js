@@ -18,7 +18,7 @@ function redditVis() {
 
 function requestData() {
   // our jsonp url, with a cache-busting query parameter
-  d3.jsonp("http://www.reddit.com/.json?jsonp=runVis&noCache=" + Math.random());
+  d3.jsonp("https://www.reddit.com/.json?jsonp=runVis&noCache=" + Math.random());
 }
 
 
